@@ -1,6 +1,7 @@
 import 'package:fifa_players/bloc/bloc.dart';
 import 'package:fifa_players/pages/player_listing.dart';
 import 'package:fifa_players/repository/player_repository.dart';
+import 'package:fifa_players/widgets/components_factory.dart';
 import 'package:fifa_players/widgets/horizontalBar.dart';
 import 'package:fifa_players/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   final PlayerRepository playerRepository;
-  HomePage({this.playerRepository});
+  final IComponentsFactory componentsFactory;
+
+  HomePage({this.playerRepository, this.componentsFactory});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -55,7 +59,9 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20.0,
             ),
-            PlayerListing(),
+            PlayerListing(
+              componentsFactory: widget.componentsFactory,
+            ),
           ],
         ),
       ),
