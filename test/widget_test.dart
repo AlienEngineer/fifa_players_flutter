@@ -5,26 +5,32 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:fifa_players/models/player.dart';
+import 'package:fifa_players/repository/player_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:fifa_players/main.dart';
+import 'package:mockito/mockito.dart';
+
+class PlayerRepositoryMock extends Mock implements PlayerRepository {}
+
+
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testWidgets('selecting Brazil displays Neymar Jr',
+      (WidgetTester tester) async {
+    var repository = PlayerRepositoryMock();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    when(repository.fetchPlayersByCountry("54"))
+        .thenAnswer((_) => Future.value([
+              Players(name: "Neymar Jr", headshot: Headshot(imgUrl: "")),
+            ]));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpWidget(MyApp(playerRepository: repository));
+
+    await tester.tap(find.byKey(Key("Country1")));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text("Neymar Jr"), findsOneWidget);
   });
 }
