@@ -43,7 +43,20 @@ void main() {
   var componentsFactory = ComponentsFactoryMock();
 
   when(repository.fetchPlayersByCountry("54")).thenAnswer((_) => Future.value([
-        Players(name: "Neymar Jr", headshot: Headshot(imgUrl: "")),
+        Players(
+          name: "Neymar Jr",
+          firstName: "Neymar",
+          lastName: "Jr",
+          age: 27,
+          positionFull: "",
+          birthdate: "",
+          headshot: Headshot(imgUrl: ""),
+          nation: Nation(
+            imageUrls: NationImageUrls(small: ""),
+          ),
+          club: Club(name: "x"),
+          league: League(name: ""),
+        ),
       ]));
 
   when(componentsFactory.makeNetworkImage(any))
@@ -59,6 +72,24 @@ void main() {
 
     // Act
     await tester.tap(find.byKey(Key("Country1")));
+    await tester.pump();
+
+    // Assert
+    expect(find.text("Neymar Jr"), findsOneWidget);
+  });
+
+  testWidgets('selecting Neymar Jr displays his details',
+      (WidgetTester tester) async {
+    // Arrange
+    await tester.pumpWidget(TestableApp(
+      componentsFactory,
+      repository,
+    ));
+    await tester.tap(find.byKey(Key("Country1")));
+    await tester.pump();
+
+    // Act
+    await tester.tap(find.byKey(Key("bt_details")));
     await tester.pump();
 
     // Assert

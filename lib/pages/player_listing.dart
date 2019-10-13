@@ -9,10 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PlayerListing extends StatelessWidget {
   final IComponentsFactory componentsFactory;
 
-  PlayerListing({this.componentsFactory});
-
-  IComponentsFactory get _factory =>
-      this.componentsFactory ?? ComponentsFactory();
+  PlayerListing(this.componentsFactory);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,8 @@ class PlayerListing extends StatelessWidget {
             color: Colors.white30,
             child: ListTile(
               leading: CircleAvatar(
-                child: _factory.makeNetworkImage(player.headshot.imgUrl),
+                child:
+                    componentsFactory.makeNetworkImage(player.headshot.imgUrl),
                 radius: 30.0,
                 backgroundColor: Colors.blue[50],
               ),
@@ -68,7 +66,8 @@ class PlayerListing extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PlayerProfile(player)));
+                          builder: (context) =>
+                              PlayerProfile(player, componentsFactory)));
                 },
               ),
             ),

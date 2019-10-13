@@ -1,10 +1,11 @@
 import 'package:fifa_players/pages/home.dart';
 import 'package:fifa_players/repository/player_repository.dart';
+import 'package:fifa_players/widgets/components_factory.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   PlayerRepository _playerRepository = new PlayerRepository();
-  runApp(MyApp(playerRepository:_playerRepository));
+  runApp(MyApp(playerRepository: _playerRepository));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(playerRepository:playerRepository,),
+      home: HomePage(
+        playerRepository: playerRepository,
+        componentsFactory: ComponentsFactory(),
+      ),
     );
   }
 }

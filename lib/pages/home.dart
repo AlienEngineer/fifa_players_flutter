@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               height: 20.0,
             ),
             PlayerListing(
-              componentsFactory: widget.componentsFactory,
+              widget.componentsFactory,
             ),
           ],
         ),

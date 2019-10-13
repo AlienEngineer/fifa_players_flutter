@@ -1,10 +1,12 @@
+import 'package:fifa_players/widgets/components_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fifa_players/models/player.dart';
 
 class PlayerProfile extends StatefulWidget {
   final Players players;
-  PlayerProfile(this.players);
+  final IComponentsFactory componentsFactory;
+  PlayerProfile(this.players, this.componentsFactory);
   @override
   _PlayerProfileState createState() => _PlayerProfileState();
 }
@@ -17,7 +19,8 @@ class _PlayerProfileState extends State<PlayerProfile> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        title: Image.network(widget.players.nation.imageUrls.small),
+        title: widget.componentsFactory
+            .makeNetworkImage(widget.players.nation.imageUrls.small),
         centerTitle: true,
       ),
       body: Center(
@@ -35,7 +38,8 @@ class _PlayerProfileState extends State<PlayerProfile> {
               ),
             ),
             CircleAvatar(
-              child: Image.network(widget.players.headshot.imgUrl),
+              child: widget.componentsFactory
+                  .makeNetworkImage(widget.players.headshot.imgUrl),
               backgroundColor: Colors.transparent,
               radius: 75.0,
             ),
@@ -59,30 +63,44 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(left:8.0,right: 8.0,top: 5.0,bottom: 5.0),
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8.0, top: 5.0, bottom: 5.0),
                               child: Text(
-                                widget.players.firstName+" "+widget.players.lastName,
+                                widget.players.firstName +
+                                    " " +
+                                    widget.players.lastName,
                                 style: TextStyle(
-                                    color: Colors.blue[900], fontSize: 22.0,fontWeight: FontWeight.bold),
+                                    color: Colors.blue[900],
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:8.0,right: 8.0),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
                               child: Text(
-                                "Age : " + widget.players.age.toString()+" | "+widget.players.birthdate,
-                                style: TextStyle(
-                                    color: Colors.blue[900], fontSize: 18.0),
-                              ),),
-                            Padding(
-                              padding: const EdgeInsets.only(left:8.0,right: 8.0),
-                              child: Text(
-                                "Height : " + widget.players.height.toString()+" cm",
+                                "Age : " +
+                                    widget.players.age.toString() +
+                                    " | " +
+                                    widget.players.birthdate,
                                 style: TextStyle(
                                     color: Colors.blue[900], fontSize: 18.0),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:8.0,right: 8.0),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Text(
+                                "Height : " +
+                                    widget.players.height.toString() +
+                                    " cm",
+                                style: TextStyle(
+                                    color: Colors.blue[900], fontSize: 18.0),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
                               child: Text(
                                 "Position : " + widget.players.positionFull,
                                 style: TextStyle(
@@ -90,17 +108,19 @@ class _PlayerProfileState extends State<PlayerProfile> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:8.0,right: 8.0),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
                               child: Text(
-                                "Club : "+widget.players.club.name,
+                                "Club : " + widget.players.club.name,
                                 style: TextStyle(
                                     color: Colors.blue[900], fontSize: 18.0),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:8.0,right: 8.0),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
                               child: Text(
-                                "League: "+widget.players.league.name,
+                                "League: " + widget.players.league.name,
                                 style: TextStyle(
                                     color: Colors.blue[900], fontSize: 18.0),
                               ),
