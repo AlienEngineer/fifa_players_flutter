@@ -14,18 +14,15 @@ import 'package:mockito/mockito.dart';
 
 class PlayerRepositoryMock extends Mock implements PlayerRepository {}
 
-
-
 void main() {
+  var repository = PlayerRepositoryMock();
+
+  when(repository.fetchPlayersByCountry("54")).thenAnswer((_) => Future.value([
+        Players(name: "Neymar Jr", headshot: Headshot(imgUrl: "")),
+      ]));
+
   testWidgets('selecting Brazil displays Neymar Jr',
       (WidgetTester tester) async {
-    var repository = PlayerRepositoryMock();
-
-    when(repository.fetchPlayersByCountry("54"))
-        .thenAnswer((_) => Future.value([
-              Players(name: "Neymar Jr", headshot: Headshot(imgUrl: "")),
-            ]));
-
     await tester.pumpWidget(MyApp(playerRepository: repository));
 
     await tester.tap(find.byKey(Key("Country1")));
