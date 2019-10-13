@@ -62,6 +62,7 @@ class PlayerListing extends StatelessWidget {
                 style: TextStyle(fontSize: 16.0, color: Colors.black87),
               ),
               trailing: IconButton(
+                key: Key("bt_details"),
                 icon: Icon(Icons.chevron_right),
                 onPressed: () {
                   Navigator.push(
